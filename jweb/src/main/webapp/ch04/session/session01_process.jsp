@@ -22,3 +22,4 @@
 	out.println("아이디 : " + sessionId); */
 %>
 <p><%=session.getAttribute("userID") %>님이 로그인 한 상태입니다.</p>
+<p><%=session.getId() %>
