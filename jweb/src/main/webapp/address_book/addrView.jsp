@@ -11,7 +11,9 @@
 <jsp:useBean id="abDAO" class="com.dao.AddrBookDAO" scope="application" />
 <%
 	String uname = request.getParameter("username");	//username 속성 값 가져와서
-	AddrBook addrBook = abDAO.getAbByUserName(uname);	//dao에서 getAbByUserName() 호출
+	
+	if(session.getAttribute("userName") != null){
+		AddrBook addrBook = abDAO.getAbByUserName(uname);	//dao에서 getAbByUserName() 호출
 %>
 <body>
 	<div id="container">
@@ -31,6 +33,12 @@
 				<td>성별</td><td><%=addrBook.getGender() %></td>
 			</tr>
 		</table>
+		<a href="addrList.jsp">목록 보기</a>
 	</div>
 </body>
 </html>
+<%
+	}else{
+		response.sendRedirect("addrForm.jsp");	//목록 페이지로 이동
+	}
+%>

@@ -19,7 +19,17 @@
 <!-- setProperty는 ArrayList에 저장됨 -->
 <!-- scope : application(웹 페이지 전체에 걸쳐서 공유, 저장 기능 -->
 <%
-	abDAO.add(addrBook);	//dao add() 메서드 호출
+	
+	String username = request.getParameter("username");
+	
+	session.setAttribute("userName", username);		//세션 발급
+	
+	//세션이 없는 경우 주소록 등록 페이지로 가)
+	if(session.getAttribute("userName") != null){
+		abDAO.add(addrBook);	//dao add() 메서드 호출
+	}else{
+		response.sendRedirect("./addrForm.jsp");
+	}
 %>
 <body>
 	<div id="container">

@@ -13,8 +13,9 @@
 
 /* 목록 보기 스타일 */
 #tbl_List{width: 600px; margin: 0 auto;}
-#tbl_List, td{border: 1px solid #ccc; border-collapse: collapse;}
-#tbl_List td{height: 40px;}
+#tbl_List, th, td{border: 1px solid #ccc; border-collapse: collapse;}
+#tbl_List th, td{height: 40px;}
+#tbl_List th{background: #eee;}
 
 /* 상세 보기 스타일 */
 #tbl_view{width: 350px; margin: 0 auto;}
