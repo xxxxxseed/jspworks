@@ -41,7 +41,7 @@ public class AddrBookDAO {
 		
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT * FROM t_address";
+			String sql = "SELECT * FROM t_address ORDER BY num ASC";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -61,5 +61,54 @@ public class AddrBookDAO {
 			JDBCUtil.close(conn, pstmt, rs);
 		}
 		return addrList;
+	}//목록 닫기
+	
+	//로그인 체크
+	public boolean checkLogin(String email) {
+		conn = JDBCUtil.getConnection();
+		String sql = "SELECT email FROM t_address WHERE email = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return true;	//이메일 일치
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		return false;			//이메일 불일치
 	}
+	
+	//상세 보기
+	public AddrBook getAbByNum(int num) {
+		AddrBook addrBook = null;
+		
+		conn = JDBCUtil.getConnection();
+		String sql = "SELECT * FROM t_address WHERE num = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				addrBook = new AddrBook();
+				addrBook.setNum(rs.getInt("num"));	//테이블의 번호 가져옴
+				addrBook.setUsername(rs.getString("username"));
+				addrBook.setTel(rs.getString("tel"));
+				addrBook.setEmail(rs.getString("email"));
+				addrBook.setGender(rs.getString("gender"));
+				addrBook.setJoinDate(rs.getDate("joinDate"));
+				
+				return addrBook;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return addrBook;
+	}
+	
 }

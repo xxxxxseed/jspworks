@@ -13,7 +13,10 @@
 	<div id="container">
 		<h2>주소록</h2>
 		<hr>
-		<p><a href="./addrForm.jsp">주소 추가</a></p>
+		<p>
+			<a href="./addrForm.jsp">[주소 추가]</a> &nbsp;
+			<a href="./logout.jsp">[로그아웃]</a>
+		</p>
 		<table id="tbl_List">
 			<tr>
 				<th>번호</th>
@@ -35,7 +38,7 @@
 				<td><%=addrBook.getEmail() %></td>
 				<td><%=addrBook.getGender() %></td>
 				<td><%=addrBook.getJoinDate() %></td>
-				<td><a href="./addrView.jsp?username=<%=addrBook.getUsername() %>">
+				<td><a href="./addrView.jsp?num=<%=addrBook.getNum() %>">
 					<button type="button">보기</button></a></td>
 				
 			</tr>
