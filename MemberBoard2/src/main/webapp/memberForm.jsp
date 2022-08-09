@@ -1,14 +1,15 @@
+<%@ page import="com.repository.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>회원 가입</title>
-	<link rel="stylesheet" href="./resources/css/common.css">
-	<script src="./resources/js/checkMember.js"></script>
+<meta charset="UTF-8">
+<title>회원 가입</title>
+<link rel="stylesheet" href="./resources/css/common.css">
+<script src="./resources/js/checkMember.js"></script>
 </head>
-<jsp:useBean id="memberDAO" class="com.repository.MemberDAO" scope="application"/>
+<jsp:useBean id="memberDAO" class="com.repository.MemberDAO" scope="application" />
 <body>
 	<jsp:include page="./menu.jsp" />
 	<div id="container">
@@ -28,7 +29,7 @@
 				</tr>
 				<tr>
 					<td>비밀번호 확인</td>
-					<td><input type="password" name="passwd_confirm" placeholder="PASSWORD_CONFIRM"></td>
+					<td><input type="password" name="passwd_confirm" placeholder="PASSWORD_CONFRIM"></td>
 				</tr>
 				<tr>
 					<td>이름</td>
@@ -53,6 +54,8 @@
 		</form>
 		</div>
 		
+		
+	
 	</div>
 	<jsp:include page="./footer.jsp" />
 </body>

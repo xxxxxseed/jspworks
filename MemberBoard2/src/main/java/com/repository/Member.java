@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Member implements Serializable{
-
+	
 	private static final long serialVersionUID = 1L;
 	
 	//필드(멤버 변수)
@@ -45,5 +45,5 @@ public class Member implements Serializable{
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-	
+
 }

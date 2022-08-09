@@ -1,13 +1,14 @@
+<%@ page import="com.repository.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>회원 로그인</title>
-	<link rel="stylesheet" href="./resources/css/common.css">
+<meta charset="UTF-8">
+<title>회원 로그인</title>
+<link rel="stylesheet" href="./resources/css/common.css">
 </head>
-<jsp:useBean id="memberDAO" class="com.repository.MemberDAO" scope="application"/>
+<jsp:useBean id="memberDAO" class="com.repository.MemberDAO" scope="application" />
 <body>
 	<jsp:include page="./menu.jsp" />
 	<div id="container">
@@ -34,7 +35,6 @@
 			</table>
 		</form>
 		</div>
-		
 	</div>
 	<jsp:include page="./footer.jsp" />
 </body>

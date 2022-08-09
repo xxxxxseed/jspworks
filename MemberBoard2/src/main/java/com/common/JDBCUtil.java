@@ -12,18 +12,18 @@ public class JDBCUtil {
 	private static String username = "c##jweb";
 	private static String password = "54321";
 	
-	//DB 연결 메서드
+	//DB 연결 메소드
 	public static Connection getConnection() {
 		try {
 			Class.forName(driverClass);
 			return DriverManager.getConnection(url, username, password);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	//DB 연결 종료 메서드
+	//DB 연결 종료 메소드
 	public static void close(Connection conn, PreparedStatement pstmt) {
 		if(pstmt != null) {
 			try {
@@ -32,18 +32,16 @@ public class JDBCUtil {
 				e.printStackTrace();
 			}
 		}
-		
 		if(conn != null) {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 	
-	//DB 연결 종료 메서드(ResultSet이 있는 경우
+	//DB 연결 종료 메소드(ResultSet이 있는 경우)
 	public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
 		if(rs != null) {
 			try {
@@ -52,7 +50,6 @@ public class JDBCUtil {
 				e.printStackTrace();
 			}
 		}
-		
 		if(pstmt != null) {
 			try {
 				pstmt.close();
@@ -60,7 +57,6 @@ public class JDBCUtil {
 				e.printStackTrace();
 			}
 		}
-		
 		if(conn != null) {
 			try {
 				conn.close();
@@ -69,6 +65,6 @@ public class JDBCUtil {
 			}
 		}
 	}
+	
+	
 }
-
-

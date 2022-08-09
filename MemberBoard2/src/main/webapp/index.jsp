@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>환영합니다.</title>
+<meta charset="UTF-8">
+<title>환영합니다.</title>
 </head>
 <body>
-	<script type="text/javascript">
-		location.href = "./main.jsp";
-	</script>
+ 	<script type="text/javascript">
+ 		location.href = "./main.jsp";
+ 	</script>
 </body>
 </html>

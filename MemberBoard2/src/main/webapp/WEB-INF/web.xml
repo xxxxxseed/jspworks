@@ -6,17 +6,17 @@
   </security-role>
   <security-constraint>
   	<web-resource-collection>
-  		<web-resource-name>MemberBoard2</web-resource-name>
+  		<web-resource-name>MemberBoard</web-resource-name>
   		<url-pattern>/memberList.do</url-pattern>
   		<http-method>GET</http-method>
   	</web-resource-collection>
   	<auth-constraint>
-  		<description>권한 관리자</description>
+  		<description>관리자</description>
   		<role-name>admin</role-name>
   	</auth-constraint>
   </security-constraint>
   
-  <!-- 폼 기반 인증 -->
+  <!-- 폼 인증 -->
   <login-config>
   	<auth-method>FORM</auth-method>
   	<form-login-config>
@@ -24,6 +24,15 @@
   		<form-error-page>/login_failed.jsp</form-error-page>
   	</form-login-config>
   </login-config>
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

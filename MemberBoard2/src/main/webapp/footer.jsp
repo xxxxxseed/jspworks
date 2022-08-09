@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>footer</title>
+<meta charset="UTF-8">
+<title>footer</title>
 </head>
 <body>
 	<footer>
