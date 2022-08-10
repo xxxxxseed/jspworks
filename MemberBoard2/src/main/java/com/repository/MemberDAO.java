@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.common.JDBCUtil;
+import com.common.JDBCUtil3;
 
 public class MemberDAO {
 	
