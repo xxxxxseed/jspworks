@@ -4,9 +4,7 @@
     pageEncoding="UTF-8"%>
 <%-- <jsp:useBean id="boardDAO" class="com.repository.BoardDAO" scope="application" /> --%>
 <%
-
-
-	request.setCharacterEncoding("utf-8");
+request.setCharacterEncoding("utf-8");
 	
 	//name 속성의 데이터 값 받기
 	String bnum = request.getParameter("bnum");

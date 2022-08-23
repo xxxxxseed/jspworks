@@ -6,8 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.common.JDBCUtil2;
 import com.common.JDBCUtil;
-import com.common.JDBCUtil3;
 
 public class BoardDAO {
 	
@@ -18,8 +18,8 @@ public class BoardDAO {
 	//게시글 쓰기
 	public void insertBoard(Board board) {
 		conn = JDBCUtil.getConnection();
-		String sql = "INSERT INTO t_board(bnum, title, content, memberId)" 
-				+ " VALUES (b_seq.nextval, ?, ?, ?)";
+		String sql = "INSERT INTO t_board2(title, content, memberId)" 
+				+ " VALUES (?, ?, ?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getTitle()); //폼에 입력 데이터를 db에 저장
@@ -32,14 +32,63 @@ public class BoardDAO {
 			JDBCUtil.close(conn, pstmt);
 		}
 	}
+	
+	//게시글 총 개수
+	public int getBoardCount() {
+		int total = 0;
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "SELECT COUNT(*) total FROM t_board2";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				total = rs.getInt("total");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		return total;
+	}
 
-	//게시글 목록 보기
-	public ArrayList<Board> getListAll(){
+	//게시글 목록 보기(페이징 처리)
+	public ArrayList<Board> getListAll(int startRow, int pageSize){
 		ArrayList<Board> boardList = new ArrayList<>();
 		
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT * FROM t_board ORDER BY bnum DESC";
+			String sql = "SELECT * FROM t_board2 ORDER BY bnum DESC LIMIT ?, ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow-1);	//0번 인덱스 이므로 1을 빼줌
+			pstmt.setInt(2, pageSize);
+			rs = pstmt.executeQuery();
+			while(rs.next()) { //반환 자료가 있는 동안
+				Board board = new Board();
+				board.setBnum(rs.getInt("bnum"));  //db 칼럼을 가져와서 객체에 세팅
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setRegDate(rs.getTimestamp("regdate"));
+				board.setMemberId(rs.getString("memberId"));
+				board.setHit(rs.getInt("hit"));
+				boardList.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		
+		return boardList;
+	}
+	
+	
+	/*public ArrayList<Board> getListAll(){
+		ArrayList<Board> boardList = new ArrayList<>();
+		
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "SELECT * FROM t_board2 ORDER BY bnum DESC";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) { //반환 자료가 있는 동안
@@ -59,7 +108,8 @@ public class BoardDAO {
 		}
 		
 		return boardList;
-	}
+	}*/
+	
 	
 	
 	//게시글 상세 보기
@@ -67,7 +117,7 @@ public class BoardDAO {
 		Board board = new Board();
 		try {
 			conn= JDBCUtil.getConnection();
-			String sql = "SELECT * FROM t_board WHERE bnum=?";
+			String sql = "SELECT * FROM t_board2 WHERE bnum=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bnum);
 			rs = pstmt.executeQuery();
@@ -90,7 +140,7 @@ public class BoardDAO {
 	public void updateHit(int bnum) {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT hit FROM t_board WHERE bnum=?";
+			String sql = "SELECT hit FROM t_board2 WHERE bnum=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bnum);
 			rs = pstmt.executeQuery();
@@ -100,7 +150,7 @@ public class BoardDAO {
 			}
 			
 			//조회수 update 처리
-			sql = "UPDATE t_board SET hit=? WHERE bnum=?";
+			sql = "UPDATE t_board2 SET hit=? WHERE bnum=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, hit);
 			pstmt.setInt(2, bnum);
@@ -116,7 +166,7 @@ public class BoardDAO {
 	public void deleteBoard(int bnum) {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "DELETE FROM t_board WHERE bnum=?";
+			String sql = "DELETE FROM t_board2 WHERE bnum=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, bnum);
 			pstmt.executeUpdate();  //삭제 실행
@@ -130,7 +180,7 @@ public class BoardDAO {
 	//게시글 수정
 	public void updateBoard(Board board) {
 		conn = JDBCUtil.getConnection();
-		String sql = "UPDATE t_board SET title=?, content=? WHERE bnum=?";
+		String sql = "UPDATE t_board2 SET title=?, content=? WHERE bnum=?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getTitle());
